@@ -15,7 +15,7 @@
 		rel="shortcut icon" 
 		type="image/x-icon" 
 		href="/favicon.ico">
-	<script src="/js/script.js"></script>
+   <script src="/js/script.js"></script>
 	<title>
 		snta.qxyz.ru - каталог курсов
 	</title>
@@ -55,7 +55,7 @@
 <H2> Форма поиска здесь: </h2>
 <div>
 <form>
-<input name="request">
+<input name="request" type="text">
 <input type=submit name="search" value="Искать!">
 </form>
  </div>
@@ -150,32 +150,149 @@
     <article class="article">
      <div class="content">
         <H2>Страница 3 -  Отрасли</h2>
-	Здесь таблица (а лучше - дерево) с отраслями: 
-        <ul>
-        <li>Строительство
-        <li>Проектирование
-        <li>Менеджемент
-        <li>Аудит
-        <li>Медицина
-        <ul>
-        <li>Педиатрия
-        <li>Генекология
-        <li>Кардиология
-        <ul>
-        <li>Хирургия
-        </ul>
-        <li>Хирургия
-        <ul>
-        <li>Кардиология
-        </ul>
-        <li>Диагностика
-        </ul>
-        <li>Информационные технологии
-        <ul>
-        <li>Программирование
-        <li>Сетевые технологии
-        </ul>
-        </ul>
+   Здесь таблица (а лучше - дерево) с отраслями: 
+   <style>
+      /* Стиль кнопок, которые используются, чтобы открыть и закрыть панель аккордеона */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.accordion_1 {
+   background-color: #ECECEC;
+  color: #444;
+  cursor: pointer;
+  padding: 13px;
+  width: 90%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.accordion:after {
+  content: '\02795'; /* Unicode символ для "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.accordion_1:after {
+  content: '\02795'; /* Unicode символ для "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Добавьте цвет фона к кнопке, если она нажата (добавьте класс .active с помощью JS) и при наведении на нее указателя мыши (наведите курсор мыши) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+.active, .accordion_1:hover {
+  background-color: #ccc;
+}
+
+/* Стиль панели аккордеона. Примечание: по умолчанию скрыто */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  max-height: 0;
+}
+
+.panel_1 {
+   padding: 0 13px;
+   width: 80%;
+  background-color: rgb(247, 233, 233);
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+   </style>
+      <button class="accordion">Строительство</button>
+      <div class="panel"></div>
+      <button class="accordion">Проектирование</button>
+      <div class="panel"></div>
+      <button class="accordion">Менеджемент</button>
+      <div class="panel"></div>
+      <button class="accordion">Аудит</button>
+      <div class="panel"></div>
+      <button class="accordion">Медицина</button>
+         <div class="panel">
+            <button class="accordion_1">Педиатрия</button>
+               <div class="panel_1"></div>
+            <button class="accordion_1">Генекология</button>
+               <div class="panel_1"></div>
+            <button class="accordion_1">Кардиология</button>
+               <div class="panel_1">
+                     Хирургия
+               </div>
+            <button class="accordion_1">Хирургия</button>
+               <div class="panel_1">
+                  Кардиология
+               </div>
+            <button class="accordion_1">Диагностика</button>
+               <div class="panel_1"></div>
+         </div>
+      <button class="accordion">Информационные технологии</button>
+         <div class="panel">
+                  Программирование
+                  Сетевые технологии
+         </div>
+      <script>
+         var acc = document.getElementsByClassName("accordion");
+         var acc1 = document.getElementsByClassName("accordion_1");
+         var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+for (i = 0; i < acc1.length; i++) {
+  acc1[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+      </script>
      </div>
     </article>
     <article class="article">
