@@ -4,44 +4,58 @@ import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
-public class Server {
+public class Server extends Thread {
 
+	private final int PORT_NUMBER = 3000;
+	private ServerSocket serverSocket;
+	private Socket socket;
+	private BufferedReader input;
+	private PrintWriter output;
+	private File path;
 	String message;
 
 	public void start() {
-		try (ServerSocket serverSocket = new ServerSocket(8082)) {
+		try {
+			serverSocket = new ServerSocket(PORT_NUMBER);
+
 			System.out.println("Server started!");
-			File path = new File("/vote");
-			
+			path = new File("/home/yadzuka/workspace/snta.qxyz.ru/docs/", "vote.html");
+			System.out.println(path.exists());
+
 			while (true) {
-				Socket socket = serverSocket.accept();
+				socket = serverSocket.accept();
 				System.out.println("Client connected!");
 
-				try (BufferedReader input = new BufferedReader(
-						new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-						PrintWriter output = new PrintWriter(socket.getOutputStream())) {
+				input = new BufferedReader
+						(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+				output = new PrintWriter(socket.getOutputStream());
 
-					while (!input.ready())
-						;
+				while (!input.ready())
+					;
 
-					System.out.println();
-					while (input.ready()) {
-						System.out.println(input.readLine());
-					}
-
-					output.println("HTTP/1.1 200 OK");
-					output.println("Content-Type: text/html; charset=utf-8");
-					output.println();
-					output.println("<p>Привет всем!</p>");
-					output.flush();
-
-					System.out.println("Client disconnected!");
-					
-					socket.close();
+				System.out.println();
+				while (input.ready()) {
+					System.out.println(input.readLine());
 				}
+
+				output.println("HTTP/1.1 200 OK");
+				output.println("Content-Type: text/html; charset=utf-8");
+				output.println();
+				output.println("<p>Привет всем!</p>");
+				output.flush();
+
+				System.out.println("Client disconnected!");
+
+				socket.close();
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
+		} finally {
+			try {
+				serverSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
