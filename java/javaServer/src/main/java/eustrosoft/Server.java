@@ -11,6 +11,7 @@ public class Server extends Thread {
 	private Socket socket;
 	private BufferedReader input;
 	private PrintWriter output;
+	private FileOutputStream fos;
 	private File path;
 	String message;
 
@@ -21,7 +22,8 @@ public class Server extends Thread {
 			System.out.println("Server started!");
 			path = new File("/home/yadzuka/workspace/snta.qxyz.ru/docs/", "vote.html");
 			System.out.println(path.exists());
-
+			fos = new FileOutputStream(path);
+			
 			while (true) {
 				socket = serverSocket.accept();
 				System.out.println("Client connected!");
@@ -42,6 +44,8 @@ public class Server extends Thread {
 				output.println("Content-Type: text/html; charset=utf-8");
 				output.println();
 				output.println("<p>Привет всем!</p>");
+				output.
+				output.println(path);
 				output.flush();
 
 				System.out.println("Client disconnected!");
@@ -53,6 +57,8 @@ public class Server extends Thread {
 		} finally {
 			try {
 				serverSocket.close();
+				output.close();
+				input.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
