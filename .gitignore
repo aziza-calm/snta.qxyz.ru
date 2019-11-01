@@ -1,1 +1,5 @@
 log/
+/java/javaServer/bin/
+/java/javaServer/target/
+pom.xml
+
