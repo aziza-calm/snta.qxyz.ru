@@ -44,7 +44,6 @@ public class Server extends Thread {
 				output.println("Content-Type: text/html; charset=utf-8");
 				output.println();
 				output.println("<p>Привет всем!</p>");
-				output.
 				output.println(path);
 				output.flush();
 
