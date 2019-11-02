@@ -1,7 +1,10 @@
 package eustrosoft;
 
 /**
- * Hello world!
+ * @Eustrosoft java web service
+ * 
+ * @author yadzuka
+ * @version 1.0
  *
  */
 public class JavaServer
@@ -9,13 +12,13 @@ public class JavaServer
 	
     public static void main( String[] args )
     {
+    	Server server = new Server();
         try {
-        	Server server = new Server();
-        	
         	server.start();
         }catch(Exception ex) {
-        	System.out.println(ex.getMessage());
-        	System.out.println("Не удалось установить соединение.");
+        	System.err.println("JavaServer.main()");
+        	System.err.println(ex.getMessage());
+        	System.err.println("Server downs");
         }
     }
 }
