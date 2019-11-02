@@ -3,6 +3,10 @@ package eustrosoft;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Hashtable;
 
 public class Server extends Thread {
 
@@ -12,17 +16,29 @@ public class Server extends Thread {
 	private BufferedReader input;
 	private PrintWriter output;
 	private FileOutputStream fos;
-	private File path;
+	private Hashtable<String, byte[]> filesHash;
 	String message;
 
 	public void start() {
 		try {
+			
+			String []p = {new File("snta.qxyz.ru/docs/vote.html").getAbsolutePath(),
+					new File("snta.qxyz.ru/docs/js/add_me.js").getAbsolutePath(),
+					new File("snta.qxyz.ru/docs/js/voters").getAbsolutePath()
+			};
+			byte[][]array = {Files.readAllBytes(Paths.get(p[0])),
+					         Files.readAllBytes(Paths.get(p[1])),
+					         Files.readAllBytes(Paths.get(p[2]))
+			};
+			
+			filesHash = new Hashtable<String, byte[]>();
+			filesHash.put("vote.html", array[0]);
+			filesHash.put("add_me.js", array[1]);
+			filesHash.put("voters", array[2]);
+			
 			serverSocket = new ServerSocket(PORT_NUMBER);
 
 			System.out.println("Server started!");
-			path = new File("/home/yadzuka/workspace/snta.qxyz.ru/docs/", "vote.html");
-			System.out.println(path.exists());
-			fos = new FileOutputStream(path);
 			
 			while (true) {
 				socket = serverSocket.accept();
@@ -39,13 +55,13 @@ public class Server extends Thread {
 				while (input.ready()) {
 					System.out.println(input.readLine());
 				}
-
+				
 				output.println("HTTP/1.1 200 OK");
 				output.println("Content-Type: text/html; charset=utf-8");
 				output.println();
-				output.println("<p>Привет всем!</p>");
-				output.
-				output.println(path);
+				output.println("<p>Hello World!</p>");
+				
+				fos.flush();
 				output.flush();
 
 				System.out.println("Client disconnected!");
@@ -59,6 +75,7 @@ public class Server extends Thread {
 				serverSocket.close();
 				output.close();
 				input.close();
+				fos.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
