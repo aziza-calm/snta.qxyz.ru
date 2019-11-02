@@ -15,7 +15,7 @@ public class JavaServer
         	server.start();
         }catch(Exception ex) {
         	System.out.println(ex.getMessage());
-        	System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРѕРµРґРёРЅРµРЅРёРµ.");
+        	System.out.println("Соединение потеряно");
         }
     }
 }
