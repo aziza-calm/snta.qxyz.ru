@@ -1,6 +1,7 @@
 var http=require('http');
 var fs=require('fs');
 let port=3000;
+var users=["test1", "test2", "test3"];
 function serveStaticFile(res,path,contentType,responseCode) {
  if (!responseCode) responseCode=200;
  var filename="docs"+path;
@@ -18,24 +19,34 @@ function serveStaticFile(res,path,contentType,responseCode) {
 }
 http.createServer(function(req,res){
  var path=req.url.replace(/\/?(?:\?.*)?$/,'').toLowerCase();
+ console.log(req.url);
  console.log(path);
  switch(path) {
   case '/vote.html':
   case '/vote':
-  case '/':
+  case '':
           serveStaticFile(res,'/vote.html','text/html');
           break;
   case '/js/vote.js':
           serveStaticFile(res,'/js/vote.js','application/javascript');
           break;
+  case '/js/add_me.js':
+          var name=req.url.replace(/\/js\/add_me.js\?name=/,'');
+	  users = users + " " + name;
+          serveStaticFile(res,'/js/add_me.js','application/javascript');
+          break;
   case '/js/voters':
-          serveStaticFile(res,'/js/voters','text/plain');
+          //serveStaticFile(res,'/js/voters','text/html');
+          res.writeHead(200,{'Content-Type':'text/javascript'});
+          //var u=users.join(" ");
+          res.end(users);
           break;
  // case 'img
 
   default:
           //serveStaticFile(res,'/public/404.html','text/html',404);
-          console.log("No such file or directory");
+          res.writeHead(404,{'Content-Type': 'text/plain'});
+          res.end('No such file or directory');
           break;
  }
 }).listen(3000);
