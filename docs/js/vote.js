@@ -32,7 +32,9 @@ function get_voters() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if ((this.readyState == 4)) {
-            document.getElementById("maindiv").innerHTML = this.responseText;
+            let div = document.createElement('div');
+            div.innerHTML = this.responseText;
+            maindiv.append(div);
             console.log(this.responseText);
         }
     };
