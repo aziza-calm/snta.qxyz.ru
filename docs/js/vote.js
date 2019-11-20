@@ -9,23 +9,17 @@ function after_reg() {
     return text + button_voters;
 }
 
-function send_name() {
+async function send_name() {
     let newname = name1.value;
     console.log(newname);
     maindiv.innerHTML = after_reg();
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if ((this.readyState == 4)) {
-            let div = document.createElement('div');
-            div.innerHTML = this.responseText;
-            maindiv.append(div);
-            console.log(this.responseText);
-        }
-    };
     let server_url = `./js/add_me.js?name=` + newname;
-    console.log(server_url);
-    xhttp.open("GET", server_url, true);
-    xhttp.send();
+    let response = await fetch(server_url);
+    if (response.ok) {
+        let div = document.createElement('div');
+        div.innerHTML = response.text();
+        maindiv.append(div);
+    }
 }
 
 function get_voters() {
