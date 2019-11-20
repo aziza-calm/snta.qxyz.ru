@@ -21,35 +21,34 @@ function serveStaticFile(res, path, contentType, responseCode) {
 }
 
 http.createServer(function(req, res) {
- var path = req.url.replace(/\/?(?:\?.*)?$/,'').toLowerCase();
- console.log("Req url: " + req.url);
- console.log("Path: " + path);
- switch(path) {
-  case '' || '/vote' || '/vote.html':
-          serveStaticFile(res,'/vote.html','text/html');
-          break;
-  case '/js/vote.js':
-          serveStaticFile(res,'/js/vote.js','application/javascript');
-          break;
-  case '/js/add_me.js':
-          var name=req.url.replace(/\/js\/add_me.js\?name=/,'');
-	  users = users + " " + name;
-          serveStaticFile(res,'/js/add_me.js','application/javascript');
-          break;
-  case '/js/voters':
-          //serveStaticFile(res,'/js/voters','text/html');
-          res.writeHead(200,{'Content-Type':'text/javascript'});
-          //var u=users.join(" ");
-          res.end(users);
-          break;
- // case 'img
-
-  default:
-          //serveStaticFile(res,'/public/404.html','text/html',404);
-          res.writeHead(404,{'Content-Type': 'text/plain'});
-          res.end('No such file or directory');
-          break;
- }
+  var path = req.url.replace(/\/?(?:\?.*)?$/,'').toLowerCase();
+    console.log("Req url: " + req.url);
+    console.log("Path: " + path);
+    switch(path) {
+      case '':
+      case '/vote':
+      case '/vote.html':
+        serveStaticFile(res,'/vote.html','text/html');
+        break;
+      case '/js/vote.js':
+        serveStaticFile(res,'/js/vote.js','application/javascript');
+        break;
+      case '/js/add_me.js':
+        var name=req.url.replace(/\/js\/add_me.js\?name=/,'');
+	users = users + " " + name;
+        serveStaticFile(res,'/js/add_me.js','application/javascript');
+        break;
+      case '/js/voters':
+        //serveStaticFile(res,'/js/voters','text/html');
+        res.writeHead(200,{'Content-Type':'text/javascript'});
+        //var u=users.join(" ");
+        res.end(users);
+        break;
+      default:
+        //serveStaticFile(res,'/public/404.html','text/html',404);
+        res.writeHead(404,{'Content-Type': 'text/plain'});
+        res.end('No such file or directory');
+        break;
+    }
 }).listen(3000);
 console.log('Сервер запущен на localhost:'+port+'; нажмите CTRL+C для завершения...')
-
