@@ -55,6 +55,12 @@ public class Server extends Thread {
 					String[] FilePath = getPathByURI(reqURI);
 					if(FilePath != null)
 					{
+						if(FilePath[0].endsWith("add_me.js")) {
+							//String name = reqHeader.get(index)
+									
+							//names[2] = name;
+						}
+						
 					 do_debug_log(FilePath[0] + "," + FilePath[1]);
 					 //
 					 write_http_file(out_stream,FilePath);
