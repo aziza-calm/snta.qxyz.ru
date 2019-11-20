@@ -1,30 +1,31 @@
-var http=require('http');
-var fs=require('fs');
-let port=3000;
-var users=["test1", "test2", "test3"];
-function serveStaticFile(res,path,contentType,responseCode) {
- if (!responseCode) responseCode=200;
- var filename="docs"+path;
- console.log(filename);
- fs.readFile(filename, function(err,data) {
-  if (err) {
-   res.writeHead(500, {'Content-Type':'text/plain'});
-   res.end('500-Internal Error');
-  }
-  else {
-   res.writeHead(responseCode,{'Content-Type':contentType});
-   res.end(data);
-  }
- });
+var http = require('http');
+var fs = require('fs');
+var port = 3000;
+var users = ["test1", "test2", "test3"];
+
+function serveStaticFile(res, path, contentType, responseCode) {
+  if (!responseCode) responseCode = 200;
+  var filename = "../docs" + path;
+  console.log("Filename: " + filename);
+  fs.readFile(filename, function(err, data) {
+    if (err) {
+      res.writeHead(500, {'Content-Type':'text/plain'});
+      res.end('500-Internal Error');
+      console.log(err);
+    }
+    else {
+      res.writeHead(responseCode,{'Content-Type':contentType});
+      res.end(data);
+    }
+  });
 }
-http.createServer(function(req,res){
- var path=req.url.replace(/\/?(?:\?.*)?$/,'').toLowerCase();
- console.log(req.url);
- console.log(path);
+
+http.createServer(function(req, res) {
+ var path = req.url.replace(/\/?(?:\?.*)?$/,'').toLowerCase();
+ console.log("Req url: " + req.url);
+ console.log("Path: " + path);
  switch(path) {
-  case '/vote.html':
-  case '/vote':
-  case '':
+  case '' || '/vote' || '/vote.html':
           serveStaticFile(res,'/vote.html','text/html');
           break;
   case '/js/vote.js':
