@@ -5,13 +5,11 @@ function after_reg() {
     let button_voters = `
     <button id="voters" onclick="get_voters()">Get voters</button>
     `;
-    console.log(text + button_voters);
     return text + button_voters;
 }
 
 async function send_name() {
     let newname = name1.value;
-    console.log(newname);
     maindiv.innerHTML = after_reg();
     let server_url = `./js/add_me.js?name=` + newname;
     let response = await fetch(server_url);
@@ -29,7 +27,6 @@ function get_voters() {
             let div = document.createElement('div');
             div.innerHTML = this.responseText;
             maindiv.append(div);
-            console.log(this.responseText);
         }
     };
     let server_url = "./js/voters";
