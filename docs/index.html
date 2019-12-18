@@ -18,7 +18,8 @@ snta.qxyz.ru :
 <script>
   var qrcode = new QRCode(document.getElementById("qrcode"), {
 	width : 200,
-	height : 200
+	height : 200,
+	correctLevel : QRCode.CorrectLevel.L, /* [L|M|Q|H] */
 });
 
 function makeCode () {		
