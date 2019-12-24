@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
   <script src="./js/qrcode.js"></script>
 </head>
 snta.qxyz.ru : 
@@ -12,14 +13,32 @@ snta.qxyz.ru :
 <a href="https://mvstu.ru/"> Пример сайта, который строится из каталога курсов</a>
 </ul>
 <input type="text" id="text1" value="beispiel">
-
-<div id="qrcode" style="width:200px; height:200px; margin-top:15px;">
+<div class="grid-container">
+	<div id="qrcodeL" class="grid-item">L</div>
+	<div id="qrcodeM" class="grid-item">M</div>
+	<div id="qrcodeQ" class="grid-item">Q</div>
+	<div id="qrcodeH" class="grid-item">H</div>
 </div>
 <script>
-  var qrcode = new QRCode(document.getElementById("qrcode"), {
+  var qrcodeL = new QRCode(document.getElementById("qrcodeL"), {
 	width : 200,
 	height : 200,
 	correctLevel : QRCode.CorrectLevel.L, /* [L|M|Q|H] */
+});
+var qrcodeM = new QRCode(document.getElementById("qrcodeM"), {
+	width : 200,
+	height : 200,
+	correctLevel : QRCode.CorrectLevel.M, /* [L|M|Q|H] */
+});
+var qrcodeQ = new QRCode(document.getElementById("qrcodeQ"), {
+	width : 200,
+	height : 200,
+	correctLevel : QRCode.CorrectLevel.Q, /* [L|M|Q|H] */
+});
+var qrcodeH = new QRCode(document.getElementById("qrcodeH"), {
+	width : 200,
+	height : 200,
+	correctLevel : QRCode.CorrectLevel.H, /* [L|M|Q|H] */
 });
 
 function makeCode () {		
@@ -30,9 +49,12 @@ function makeCode () {
 		elText.focus();
 		return;
 	}
-	
-	qrcode.makeCode(elText.value);
+	qrcodeL.makeCode(elText.value);
+	qrcodeM.makeCode(elText.value);
+	qrcodeQ.makeCode(elText.value);
+	qrcodeH.makeCode(elText.value);
 }
+	
 </script>
 <button onclick="makeCode()">Make qrcode</button>
 </html>
